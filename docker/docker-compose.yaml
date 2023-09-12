@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: tickets-db
+    build:
+      context: ./postgres
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - backend-postgres
+    volumes:
+      - /docker/postgres/data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: tickets-pg-admin
+    build:
+      context: ./pgadmin
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - 5050:5050
+    networks:
+      - backend-postgres
+    depends_on:
+      - postgres
+
+networks:
+  backend-postgres: {}
