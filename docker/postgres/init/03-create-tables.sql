@@ -5,3 +5,5 @@ CREATE TABLE user (
     senha VARCHAR(255) NOT NULL,
     userLevel VARCHAR(255) NOT NULL,
 );
+
+GRANT ALL PRIVILEGES ON user TO ticketsuser;
