@@ -6,15 +6,15 @@ import {
   Param,
   Post,
   Put,
-} from '@nestjs/common';
-import { UserRepository } from '../user/user.repository';
-import { CreateUserDTO } from './dto/create-user.dto';
-import { v4 as uuid } from 'uuid';
-import { UserEntity } from './user.entity';
-import { ListUserDTO } from './dto/list-user.dto';
-import { UpdateUserDTO } from './dto/update-user.dto';
+} from "@nestjs/common";
+import { UserRepository } from "../user/user.repository";
+import { CreateUserDTO } from "./dto/create-user.dto";
+import { v4 as uuid } from "uuid";
+import { UserEntity } from "./user.entity";
+import { ListUserDTO } from "./dto/list-user.dto";
+import { UpdateUserDTO } from "./dto/update-user.dto";
 
-@Controller('/users')
+@Controller("/users")
 export class UserController {
   constructor(private readonly userRepository: UserRepository) {}
 
@@ -29,35 +29,38 @@ export class UserController {
 
     this.userRepository.create(userEntity);
     return {
-      message: 'User created successfully',
-      user: new ListUserDTO(userEntity.id, userEntity.name),
+      message: "User created successfully",
+      user: new ListUserDTO(userEntity.id, userEntity.name, userEntity.level),
+      level: userEntity.level,
     };
   }
 
   @Get()
   async findAll() {
     const users = await this.userRepository.listAll();
-    const usersList = users.map((user) => new ListUserDTO(user.id, user.name));
+    const usersList = users.map(
+      (user) => new ListUserDTO(user.id, user.name, user.level)
+    );
 
     return usersList;
   }
 
-  @Put('/:id')
-  async updateUser(@Param('id') id: string, @Body() newData: UpdateUserDTO) {
+  @Put("/:id")
+  async updateUser(@Param("id") id: string, @Body() newData: UpdateUserDTO) {
     const userAtt = await this.userRepository.update(id, newData);
 
     return {
-      message: 'User updated successfully',
-      user: new ListUserDTO(userAtt.id, userAtt.name),
+      message: "User updated successfully",
+      user: new ListUserDTO(userAtt.id, userAtt.name, userAtt.level),
     };
   }
 
-  @Delete('/:id')
-  async deleteUser(@Param('id') id: string) {
+  @Delete("/:id")
+  async deleteUser(@Param("id") id: string) {
     await this.userRepository.deleteUser(id);
 
     return {
-      message: 'User deleted successfully',
+      message: "User deleted successfully",
     };
   }
 }
