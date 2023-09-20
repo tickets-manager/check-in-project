@@ -1,9 +1,9 @@
-import { userLevel } from './dto/create-user.dto';
+import { UserLevel } from "../value-object/user-level";
 
 export class UserEntity {
   id: string;
   name: string;
   email: string;
-  level: userLevel;
+  level: UserLevel;
   password: string;
 }

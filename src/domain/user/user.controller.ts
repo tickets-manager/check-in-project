@@ -7,12 +7,12 @@ import {
   Post,
   Put,
 } from "@nestjs/common";
-import { UserRepository } from "../user/user.repository";
-import { CreateUserDTO } from "./dto/create-user.dto";
 import { v4 as uuid } from "uuid";
-import { UserEntity } from "./user.entity";
-import { ListUserDTO } from "./dto/list-user.dto";
-import { UpdateUserDTO } from "./dto/update-user.dto";
+import { CreateUserDTO } from "../../infra/dto/create-user.dto";
+import { ListUserDTO } from "../../infra/dto/list-user.dto";
+import { UpdateUserDTO } from "../../infra/dto/update-user.dto";
+import { UserEntity } from "./entity/user.entity";
+import { UserRepository } from "./user.service";
 
 @Controller("/users")
 export class UserController {
