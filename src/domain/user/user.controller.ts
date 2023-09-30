@@ -12,7 +12,7 @@ import { CreateUserDTO } from "../../infra/dto/create-user.dto";
 import { ListUserDTO } from "../../infra/dto/list-user.dto";
 import { UpdateUserDTO } from "../../infra/dto/update-user.dto";
 import { UserEntity } from "./entity/user.entity";
-import { UserRepository } from "./user.service";
+import { UserRepository } from "../../infra/database/prisma/service/user/user.service";
 
 @Controller("/users")
 export class UserController {
