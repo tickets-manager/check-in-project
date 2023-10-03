@@ -1,5 +1,5 @@
 import { IsEmail, IsEnum, IsNotEmpty, MinLength } from "class-validator";
-import { EmailIsUnique } from "../../domain/user/validation/email-is-unique.validator";
+import { EmailIsUnique } from "@app/domain/user/validator/user.class-validator.validator";
 
 export enum userLevel {
   admin = "admin",

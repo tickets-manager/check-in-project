@@ -1,11 +1,10 @@
-import { Injectable } from "@nestjs/common";
-import { Prisma, User } from "@prisma/client";
-import { PrismaService } from "@app/infra/database/prisma/prisma.service";
 import { UserEntity } from "@app/domain/user/entity/user.entity";
 import UserFactory from "@app/domain/user/factory/user.factory";
 import UserRepositoryInterface from "@app/domain/user/repository/user-repository.interface";
 import { UserLevel } from "@app/domain/user/value-object/user-level";
-import { time } from "console";
+import { PrismaService } from "@app/infra/database/prisma/prisma.service";
+import { Injectable } from "@nestjs/common";
+import { Prisma, User } from "@prisma/client";
 
 @Injectable()
 export class UserRepository implements UserRepositoryInterface {
@@ -37,11 +36,18 @@ export class UserRepository implements UserRepositoryInterface {
   }
 
   async create(user: UserEntity): Promise<void> {
-    const newUser = UserFactoryPrisma.create(user);
     await this.prismaService.user.create({
-      data: newUser,
+      data: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        level: user.level.toString(),
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      },
     });
-   }
+  }
 
   async update(user: UserEntity): Promise<void> {
     const persistedUser = await this.prismaUser({ id: user.id });
@@ -50,10 +56,32 @@ export class UserRepository implements UserRepositoryInterface {
       throw new Error("User not found");
     }
 
-    const updatedUser = UserFactoryPrisma.update(persistedUser, user);
     await this.prismaService.user.update({
       where: { id: user.id },
-      data: updatedUser,
+      data: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+        level: user.level.toString(),
+        createdAt: persistedUser.createdAt,
+        updatedAt: new Date().toISOString(),
+      },
+    });
+  }
+
+  async findAll(): Promise<UserEntity[]> {
+    const users = await this.prismaUsers({});
+
+    return users.map((user) => {
+      const { id, name, email, password, level } = user;
+      return UserFactory.createWithIdAndLevel(
+        id,
+        name,
+        email,
+        password,
+        UserLevel[level]
+      );
     });
   }
 
@@ -64,34 +92,40 @@ export class UserRepository implements UserRepositoryInterface {
       throw new Error("User not found");
     }
 
-    const { name, email, password, level} = user;
+    const { name, email, password, level } = user;
 
-    return UserFactory.createWithIdAndLevel(id, name, email, password, UserLevel[level]);
-  }
-};
-
-class UserFactoryPrisma {
-  static create(user: UserEntity): Prisma.UserCreateInput {
-    return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      level: user.level.toString(),
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    };
+    return UserFactory.createWithIdAndLevel(
+      id,
+      name,
+      email,
+      password,
+      UserLevel[level]
+    );
   }
 
-  static update(persistedUser: User, user: UserEntity): Prisma.UserUpdateInput {
-    return {
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      password: user.password,
-      level: user.level.toString(),
-      createdAt: persistedUser.createdAt,
-      updatedAt: new Date().toISOString(),
-    };
+  async findByEmail(email: string): Promise<UserEntity> {
+    const user = await this.prismaUser({ email });
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    const { id, name, password, level } = user;
+
+    return UserFactory.createWithIdAndLevel(
+      id,
+      name,
+      email,
+      password,
+      UserLevel[level]
+    );
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prismaService.user.delete({
+      where: { id },
+    });
+
+    return;
   }
 }

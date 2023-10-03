@@ -1,5 +1,5 @@
-import RepositoryInterface from "src/domain/@shared/repository/repository-interface";
-import { UserEntity as User } from "../entity/user.entity";
+import RepositoryInterface from "@app/domain/@shared/repository/repository-interface";
+import { UserEntity as User } from "@app/domain/user/entity/user.entity";
 
 export default interface UserRepositoryInterface
   extends RepositoryInterface<User> {
