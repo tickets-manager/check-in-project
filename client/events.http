@@ -1,0 +1,31 @@
+@id = 1e0f104c-6f2d-49bb-8c89-3b12b951d513
+
+###
+GET http://localhost:3000/events
+
+###
+GET http://localhost:3000/events/{{id}}
+
+###
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+    "name": "Event 1",
+    "capacity": 100,
+    "location": "London",
+    "date": "2021-01-01T00:00:00.000Z",
+    "description": "Event 1 description"
+}
+
+###
+PATCH http://localhost:3000/events/{{id}}
+Content-Type: application/json
+
+{
+  "name": "Event updated",
+  "capacity": 200
+}
+
+###
+DELETE http://localhost:3000/events/{{id}}

@@ -1,0 +1,28 @@
+@id = 2e2355ca-4789-4ce9-8157-62dd13298502
+
+###
+GET http://localhost:3000/users
+
+###
+GET http://localhost:3000/users/{{id}}
+
+###
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "name": "John Doe",
+  "email": "jhon@test.com",
+  "password": "123456"
+}
+
+###
+PATCH http://localhost:3000/users/{{id}}
+Content-Type: application/json
+
+{
+  "name": "John Updated"
+}
+
+###
+DELETE http://localhost:3000/users/{{id}}
