@@ -1,8 +1,6 @@
+import UserRepositoryInterface from "@app/domain/user/repository/user-repository.interface";
 import { Injectable } from "@nestjs/common";
-import UserFactory from "src/domain/user/factory/user.factory";
-import UserRepositoryInterface from "src/domain/user/repository/user-repository.interface";
 import { InputFindUserDTO, OutputFindUserDTO } from "./find.user.dto";
-import { UserLevel } from "src/domain/user/value-object/user-level";
 
 @Injectable()
 export default class FindUserUseCase {

@@ -1,4 +1,4 @@
-import { UserLevel } from "../value-object/user-level";
+import { UserLevel } from "@app/domain/user/value-object/user-level";
 
 export class UserEntity {
   id: string;

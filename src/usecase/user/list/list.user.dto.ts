@@ -5,3 +5,13 @@ export interface InputListUserDTO {
   sort: string;
   filter: string;
 }
+
+export interface OutputListUserDTO {
+  users: {
+    id: string;
+    name: string;
+    email: string;
+    level: string;
+  }[];
+  total: number;
+}

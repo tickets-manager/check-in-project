@@ -1,10 +1,7 @@
+import { UserEntity as User } from "@app/domain/user/entity/user.entity";
+import { UserLevel } from "@app/domain/user/value-object/user-level";
 import { Injectable } from "@nestjs/common";
 import { v4 as uuid } from "uuid";
-import { UserEntity as User } from "../entity/user.entity";
-import { UserLevel } from "../value-object/user-level";
-
-import { IsEmail, IsEnum, IsNotEmpty, MinLength } from "class-validator";
-import { EmailIsUnique } from "../validator/user.class-validator.validator";
 
 @Injectable()
 export default class UserFactory {
