@@ -1,4 +1,4 @@
-version: "3.7"
+version: '3.7'
 
 services:
   postgres:
@@ -11,8 +11,6 @@ services:
       - 5432:5432
     networks:
       - backend-postgres
-    volumes:
-      - /docker/postgres/data:/var/lib/postgresql/data
 
   pgadmin:
     container_name: tickets-pg-admin

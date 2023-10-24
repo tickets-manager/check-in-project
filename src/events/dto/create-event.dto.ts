@@ -4,4 +4,5 @@ export class CreateEventDto {
   location: string;
   date: Date;
   description: string;
+  imageUrl: string;
 }
