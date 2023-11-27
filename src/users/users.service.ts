@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
@@ -51,5 +52,24 @@ export class UsersService {
         id,
       },
     });
+  }
+
+  async login(loginUserDto: LoginUserDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: loginUserDto.email,
+        password: loginUserDto.password,
+      },
+    });
+
+    const IsAuthenticated = user ? true : false;
+
+    return {
+      IsAuthenticated,
+      user: {
+        id: user.id,
+        name: user.name,
+      },
+    };
   }
 }

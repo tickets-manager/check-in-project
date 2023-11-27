@@ -1,13 +1,13 @@
 @id = 2e2355ca-4789-4ce9-8157-62dd13298502
 
 ###
-GET http://localhost:3000/users
+GET http://localhost:3333/users
 
 ###
-GET http://localhost:3000/users/{{id}}
+GET http://localhost:3333/users/{{id}}
 
 ###
-POST http://localhost:3000/users
+POST http://localhost:3333/users
 Content-Type: application/json
 
 {
@@ -17,7 +17,7 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:3000/users/{{id}}
+PATCH http://localhost:3333/users/{{id}}
 Content-Type: application/json
 
 {
@@ -25,4 +25,13 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/users/{{id}}
+DELETE http://localhost:3333/users/{{id}}
+
+###
+POST http://localhost:3333/users/login
+Content-Type: application/json
+
+{
+  "email": "jhon@test.com",
+  "password": "123456"
+}
