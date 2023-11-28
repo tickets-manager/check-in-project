@@ -1,6 +1,6 @@
-@id = 
-@userId = 4ea40928-8e2a-4f87-843f-43f97d1699c5
-@eventId = 08db1be5-e2df-43b1-8592-a9b0b98f64a9
+@id = d50a20c7-74b2-46cb-8f51-6b1b73674870
+@userId = 5bd2845f-3537-4d33-b06a-224bcb7164fd
+@eventId = 5d3a32c3-e8f3-4593-bfae-bfd797ae68d1
 
 ###
 GET http://localhost:3333/tickets/{{id}}
@@ -15,13 +15,5 @@ Content-Type: application/json
 }
 
 ###
-PATCH http://localhost:3333/tickets/{{id}}
+GET http://localhost:3333/tickets/user/{{userId}}
 Content-Type: application/json
-
-{
-  "name": "Event updated",
-  "capacity": 200
-}
-
-###
-DELETE http://localhost:3333/tickets/{{id}}
