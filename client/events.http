@@ -1,13 +1,13 @@
 @id = 1e0f104c-6f2d-49bb-8c89-3b12b951d513
 
 ###
-GET http://localhost:3000/events
+GET http://localhost:3333/events
 
 ###
-GET http://localhost:3000/events/{{id}}
+GET http://localhost:3333/events/{{id}}
 
 ###
-POST http://localhost:3000/events
+POST http://localhost:3333/events
 Content-Type: application/json
 
 {
@@ -15,11 +15,12 @@ Content-Type: application/json
     "capacity": 100,
     "location": "London",
     "date": "2021-01-01T00:00:00.000Z",
-    "description": "Event 1 description"
+    "description": "Event 1 description",
+    "imageUrl": "https://assets.simpleviewinc.com/simpleview/image/upload/c_limit,q_75,w_1200/v1/crm/queenstownnz/DQ-2048x960-PicA13_4058F5EF-021A-4A58-84E0438F1D40D3E7_6b471148-9de1-41b4-a57879c919fdf111.jpg"
 }
 
 ###
-PATCH http://localhost:3000/events/{{id}}
+PATCH http://localhost:3333/events/{{id}}
 Content-Type: application/json
 
 {
@@ -28,4 +29,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:3000/events/{{id}}
+DELETE http://localhost:3333/events/{{id}}
